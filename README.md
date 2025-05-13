@@ -1,6 +1,6 @@
-# 🎓 AI Tutor Web App — Intelligent Q&A with LLaMA 3 + LangChain
+# 🎓 NeuroLearn — Intelligent Q&A with LLaMA 3 + LangChain
 
-An interactive, student-friendly **AI Tutor web application** powered by state-of-the-art language and retrieval models. Built using **LangChain**, **Qdrant**, and **Meta’s LLaMA 3.1 8B** via Hugging Face, this app can **understand questions**, **retrieve contextual knowledge**, and **generate clear, simple answers** — just like a real tutor.
+An interactive, student-friendly **Neuro web application** powered by state-of-the-art language and retrieval models. Built using **LangChain**, **Qdrant**, and **Meta’s LLaMA 3.1 8B** via Hugging Face, this app can **understand questions**, **retrieve contextual knowledge**, and **generate clear, simple answers** — just like a real tutor.
 
 > 🔍 Perfect for educational assistance, study support, and AI-powered learning during hackathons or live demos!
 
@@ -72,6 +72,23 @@ Who is Voltaire?
 
 AI Tutor Response:
 Voltaire was a French writer and philosopher known for his wit and criticism of injustice. He believed in freedom of speech and religion and helped shape the Enlightenment. Think of him like an 18th-century influencer for truth and fairness!
+
+---
+
+## 🧪 Model Details
+
+🔹 Embedding Model:
+
+Name: BAAI/bge-base-en-v1.5
+Purpose: Transforms text into high-quality embeddings for semantic similarity.
+Framework: sentence-transformers
+
+🔹 LLM:
+Model: meta-llama/Llama-3.1-8B
+Provider: Hugging Face
+Inference Type: 4-bit quantized using bitsandbytes for memory efficiency
+Pipeline: transformers.pipeline("text-generation")
+
 
 
 
