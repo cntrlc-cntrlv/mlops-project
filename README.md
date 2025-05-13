@@ -59,6 +59,8 @@ An interactive, student-friendly **Neuro web application** powered by state-of-t
   HF_token = "YOUR_HUGGINGFACE_TOKEN"
 
   🔐 Note: Get your tokens from:
+
+  
     Hugging Face: https://huggingface.co/settings/tokens
     Qdrant Cloud: https://cloud.qdrant.io/
 
@@ -75,12 +77,12 @@ An interactive, student-friendly **Neuro web application** powered by state-of-t
 
 ## 📌 Example Use Case
   Question:
-    Who is Voltaire?
+   Who is Voltaire?
   
   AI Tutor Response:
   
-    Voltaire was a French writer and philosopher known for his wit and criticism of injustice. He believed in freedom of speech and religion and helped shape the Enlightenment. Think of him 
-    like an 18th-century influencer for truth and fairness!
+   Voltaire was a French writer and philosopher known for his wit and criticism of injustice. He believed in freedom of speech and religion and helped shape the Enlightenment. Think of him 
+   like an 18th-century influencer for truth and fairness!
 
 
 ---
