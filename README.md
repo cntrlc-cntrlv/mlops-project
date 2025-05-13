@@ -31,7 +31,7 @@ An interactive, student-friendly **Neuro web application** powered by state-of-t
 
 | Layer         | Technology                           |
 |---------------|---------------------------------------|
-| Frontend      | HTML, CSS (via Flask templates)       |
+| Frontend      | HTML, CSS (via Flask templates)& js       |
 | Backend       | Python, Flask                         |
 | Vector Store  | Qdrant                                |
 | Embeddings    | `BAAI/bge-base-en-v1.5`               |
