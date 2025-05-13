@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Knowledge Assistant</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .message-entering {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .typing-dot {
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+        @keyframes typingAnimation {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
+            30% { transform: translateY(-5px); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-robot text-2xl"></i>
+                <h1 class="text-xl font-bold">AI Knowledge Assistant</h1>
+            </div>
+            <div class="flex space-x-4">
+                <button class="hover:text-indigo-200 transition">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="hover:text-indigo-200 transition">
+                    <i class="fas fa-question-circle"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Chat Area -->
+    <main class="flex-1 container mx-auto px-4 py-6 flex flex-col">
+        <div class="bg-white rounded-lg shadow-md flex-1 flex flex-col overflow-hidden">
+            <!-- Chat Messages Container -->
+            <div id="chat-container" class="flex-1 p-4 overflow-y-auto space-y-4">
+                <!-- Welcome Message -->
+                <div class="flex justify-start">
+                    <div class="bg-indigo-100 rounded-lg p-4 max-w-3xl">
+                        <div class="font-semibold text-indigo-800">AI Assistant</div>
+                        <p class="mt-1 text-gray-700">Hello! I'm your AI knowledge assistant. Ask me anything about the documents in my knowledge base.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="border-t border-gray-200 p-4 bg-gray-50">
+                <form id="chat-form" class="flex space-x-2">
+                    <input 
+                        id="message-input"
+                        type="text" 
+                        placeholder="Type your question..." 
+                        class="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        autocomplete="off"
+                    >
+                    <button 
+                        type="submit"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full w-12 h-12 flex items-center justify-center transition"
+                    >
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+                <p class="text-xs text-gray-500 mt-2 px-2">
+                    Press Enter to send, Shift+Enter for new line
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-3">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>© 2023 AI Knowledge Assistant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatForm = document.getElementById('chat-form');
+            const messageInput = document.getElementById('message-input');
+            const chatContainer = document.getElementById('chat-container');
+            
+           
+            chatForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const message = messageInput.value.trim();
+                if (!message) return;
+                
+               
+                addMessage(message, 'user');
+                messageInput.value = '';
+                
+                
+                const typingIndicator = showTypingIndicator();
+                
+                try {
+                   
+                    const response = await fetch('/ask', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ question: message })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    
+                    typingIndicator.remove();
+                    
+                    if (data.error) {
+                        addMessage(`Error: ${data.error}`, 'bot', true);
+                    } else {
+                        addMessage(data.answer, 'bot');
+                    }
+                } catch (error) {
+                    typingIndicator.remove();
+                    addMessage(`Error: ${error.message}`, 'bot', true);
+                }
+            });
+            
+            // Handle Shift+Enter for new line
+            messageInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && e.shiftKey) {
+                    return; 
+                }
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    chatForm.dispatchEvent(new Event('submit'));
+                }
+            });
+            
+            // Add a message to the chat
+            function addMessage(text, sender, isError = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `flex justify-${sender === 'user' ? 'end' : 'start'} message-entering`;
+                
+                const bubbleClass = isError 
+                    ? 'bg-red-100 text-red-800'
+                    : sender === 'user' 
+                        ? 'bg-indigo-600 text-white' 
+                        : 'bg-gray-100 text-gray-800';
+                
+                messageDiv.innerHTML = `
+                    <div class="rounded-lg p-4 max-w-3xl ${bubbleClass}">
+                        ${sender === 'bot' ? '<div class="font-semibold">AI Assistant</div>' : ''}
+                        <div class="mt-1 whitespace-pre-wrap">${formatMessage(text)}</div>
+                    </div>
+                `;
+                
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'flex justify-start message-entering';
+                typingDiv.innerHTML = `
+                    <div class="bg-gray-100 rounded-lg p-4 max-w-xs">
+                        <div class="flex space-x-1">
+                            <div class="typing-dot w-2 h-2 bg-gray-500 rounded-full"></div>
+                            <div class="typing-dot w-2 h-2 bg-gray-500 rounded-full" style="animation-delay: 0.2s"></div>
+                            <div class="typing-dot w-2 h-2 bg-gray-500 rounded-full" style="animation-delay: 0.4s"></div>
+                        </div>
+                    </div>
+                `;
+                chatContainer.appendChild(typingDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                return typingDiv;
+            }
+            
+            // Format message (preserve newlines and links)
+            function formatMessage(text) {
+                return text
+                    .replace(/\n/g, '<br>')
+                    .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" class="text-indigo-600 hover:underline">$1</a>');
+            }
+        });
+    </script>
+</body>
+</html>
