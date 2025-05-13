@@ -77,6 +77,7 @@ An interactive, student-friendly **Neuro web application** powered by state-of-t
 
 ## 📌 Example Use Case
   Question:
+  
    Who is Voltaire?
   
   AI Tutor Response:
