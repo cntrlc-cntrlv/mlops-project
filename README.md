@@ -78,6 +78,7 @@ An interactive, student-friendly **Neuro web application** powered by state-of-t
     Who is Voltaire?
   
   AI Tutor Response:
+  
     Voltaire was a French writer and philosopher known for his wit and criticism of injustice. He believed in freedom of speech and religion and helped shape the Enlightenment. Think of him 
     like an 18th-century influencer for truth and fairness!
 
