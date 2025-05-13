@@ -2,7 +2,7 @@
 
 An interactive, student-friendly **Neuro web application** powered by state-of-the-art language and retrieval models. Built using **LangChain**, **Qdrant**, and **Meta’s LLaMA 3.1 8B** via Hugging Face, this app can **understand questions**, **retrieve contextual knowledge**, and **generate clear, simple answers** — just like a real tutor.
 
-> 🔍 Perfect for educational assistance, study support, and AI-powered learning during hackathons or live demos!
+> 🔍 Perfect for educational assistance, study support, and AI-powered learning.
 
 ---
 
