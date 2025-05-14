@@ -1,6 +1,6 @@
-# 🎓 NeuroLearn — Intelligent Q&A with LLaMA 3 + LangChain
+# 🎓 NeuroLearn — Intelligent Q&A 
 
-An interactive, student-friendly **Neuro web application** powered by state-of-the-art language and retrieval models. Built using **LangChain**, **Qdrant**, and **Meta’s LLaMA 3.1 8B** via Hugging Face, this app can **understand questions**, **retrieve contextual knowledge**, and **generate clear, simple answers** — just like a real tutor.
+An interactive, student-friendly **Neuro web application** powered by state-of-the-art language and retrieval models. Built using **LangChain**, **Qdrant**, and **TinyLlama/TinyLlama-1.1B-Chat-v1.0** via Hugging Face, this app can **understand questions**, **retrieve contextual knowledge**, and **generate clear, simple answers** — just like a real tutor.
 
 > 🔍 Perfect for educational assistance, study support, and AI-powered learning.
 
@@ -11,7 +11,7 @@ An interactive, student-friendly **Neuro web application** powered by state-of-t
 - ✅ Simple, responsive **Flask-based frontend**
 - ✅ Embeds your custom documents using **BAAI's `bge-base-en-v1.5`**
 - ✅ Stores and retrieves data via **Qdrant vector database**
-- ✅ Generates human-like explanations using **Meta's `LLaMA 3.1 8B`** model
+- ✅ Generates human-like explanations using **Meta's `TinyLlama/TinyLlama-1.1B-Chat-v1.0`** model
 - ✅ Uses **LangChain** to orchestrate search + generation
 - ✅ Optimized for **student learning and ease of understanding**
 
@@ -21,7 +21,7 @@ An interactive, student-friendly **Neuro web application** powered by state-of-t
 
 1. **User asks a question** via the web interface.
 2. **LangChain Retriever** searches relevant content in the vector database (Qdrant).
-3. The **retrieved knowledge** is passed into a **prompt template**.
+3. The **query** is passed into a **prompt template**.
 4. The **LLaMA 3.1 model** generates a clear, simple explanation.
 5. The answer is returned in a student-friendly tone.
 
@@ -35,7 +35,7 @@ An interactive, student-friendly **Neuro web application** powered by state-of-t
 | Backend       | Python, Flask                         |
 | Vector Store  | Qdrant                                |
 | Embeddings    | `BAAI/bge-base-en-v1.5`               |
-| Language Model| `meta-llama/Llama-3.1-8B` (Hugging Face) |
+| Language Model| `TinyLlama/TinyLlama-1.1B-Chat-v1.0` (Hugging Face) |
 | Pipeline Mgmt | LangChain                             |
 
 ---
@@ -66,7 +66,7 @@ An interactive, student-friendly **Neuro web application** powered by state-of-t
 
 
 ## 4. Run The App
-  python app.py
+  python server.py
   
   Open your browser and go to :
   http://127.0.0.1:5000
@@ -99,7 +99,7 @@ An interactive, student-friendly **Neuro web application** powered by state-of-t
 
 🔹 LLM:
 
-    Model: meta-llama/Llama-3.1-8B
+    Model: TinyLlama/TinyLlama-1.1B-Chat-v1.0
     Provider: Hugging Face
     Inference Type: 4-bit quantized using bitsandbytes for memory efficiency
     Pipeline: transformers.pipeline("text-generation")
